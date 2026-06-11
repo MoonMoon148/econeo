@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoNeo - 새로운 저탄소 자산 관리</title>
+    <!-- 구글 폰트 (Pretendard 스타일의 깔끔한 폰트 적용) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 기본 변수 컬러 설정 (초록, 파랑, 흰색의 조화) */
+        :root {
+            --bg-clean-white: #F8FAFC;
+            --pure-white: #FFFFFF;
+            --neo-green: #10B981;       /* 친환경 에코 그린 */
+            --neo-green-glow: #D1FAE5;  
+            --earth-blue: #3B82F6;      /* 신뢰감 주는 테크 블루 */
+            --earth-blue-glow: #DBEAFE;
+            --text-dark: #1E293B;       /* 가독성 높은 차콜 블랙 */
+            --text-muted: #64748B;
+            --card-border: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-clean-white);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 헤더 / 상단 바 */
+        header {
+            background-color: var(--pure-white);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+        }
+
+        .logo span {
+            color: var(--neo-green);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--earth-blue-glow);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: var(--earth-blue);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* 메인 컨테이너 */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* 히어로 환영 섹션 */
+        .welcome-banner {
+            background: linear-gradient(135deg, #EFF6FF 0%, #ECFDF5 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .welcome-banner h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .welcome-banner p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* 대시보드 통계 그리드 레이아웃 */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 대시보드 카드 공통 스타일 */
+        .card {
+            background-color: var(--pure-white);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .badge-green {
+            background-color: var(--neo-green-glow);
+            color: var(--neo-green);
+            padding: 0.25rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .badge-blue {
+            background-color: var(--earth-blue-glow);
+            color: var(--earth-blue);
+            padding: 0.25rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .card-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-value span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .card-footer {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .accent-green { color: var(--neo-green); font-weight: 500; }
+        .accent-blue { color: var(--earth-blue); font-weight: 500; }
+
+        /* 행동 타임라인 리포트 */
+        .report-section {
+            background-color: var(--pure-white);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2rem;
+        }
+
+        .report-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .item-icon-gps {
+            width: 42px;
+            height: 42px;
+            background-color: var(--earth-blue-glow);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .item-icon-shop {
+            width: 42px;
+            height: 42px;
+            background-color: var(--neo-green-glow);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .item-details h3 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .item-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .item-credit {
+            font-weight: 700;
+            color: var(--neo-green);
+        }
+
+        /* 하단 카피라이트 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--card-border);
+            background-color: var(--pure-white);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 바 네비게이션 -->
+    <header>
+        <div class="logo">Eco<span>Neo</span></div>
+        <div class="user-profile">
+            👤 네오멤버 #01
+        </div>
+    </header>
+
+    <!-- 메인 대시보드 영역 -->
+    <main>
+        <!-- 상단 히어로 배너 -->
+        <section class="welcome-banner">
+            <h1>지구를 구하는 새로운 인류, EcoNeo</h1>
+            <p>수기 입력 없이 GPS와 소비 데이터가 자동으로 측정되어 크레딧으로 돌아옵니다.</p>
+        </section>
+
+        <!-- 핵심 데이터 카드 그리드 -->
+        <section class="dashboard-grid">
+            <!-- 1. 보유 크레딧 카드 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">나의 보유 에코크레딧</span>
+                    <span class="badge-blue">내 자산</span>
+                </div>
+                <div class="card-value">12,450 <span>Neo</span></div>
+                <div class="card-footer">
+                    기프티콘 및 친환경 브랜드 <span class="accent-blue">할인권 교환 가능</span>
+                </div>
+            </div>
+
+            <!-- 2. 탄소 절감 카드 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">이번 주 탄소 절감량</span>
+                    <span class="badge-green">저번주 대비 -12%</span>
+                </div>
+                <div class="card-value">4.8 <span>kg CO₂e</span></div>
+                <div class="card-footer">
+                    어린 소나무 <span class="accent-green">1.2그루</span>를 심은 효과와 같습니다.
+                </div>
+            </div>
+
+            <!-- 3. 일회용품 절감 통계 카드 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">일회용품 절감 횟수</span>
+                    <span class="badge-green">Excellent</span>
+                </div>
+                <div class="card-value">14 <span>회</span></div>
+                <div class="card-footer">
+                    지난주보다 배달/카페 일회용품을 <span class="accent-green">5회 더</span> 아꼈습니다.
+                </div>
+            </div>
+        </section>
+
+        <!-- 하단 자동 트래킹 라이브 리포트 -->
+        <section class="report-section">
+            <h2>실시간 에코로그 리포트 <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal;">● 실시간 자동 반영 중</span></h2>
+            
+            <div class="timeline">
+                <!-- 1. 이메일 데이터 인식 아이템 -->
+                <div class="timeline-item">
+                    <div class="item-info">
+                        <div class="item-icon-shop">🥡</div>
+                        <div class="item-details">
+                            <h3>배달의민족 전자영수증 자동 인식</h3>
+                            <p>주문 옵션에서 [일회용 수저/포크 제외] 선택 확인 완료</p>
+                        </div>
+                    </div>
+                    <div class="item-credit">+ 40 Neo</div>
+                </div>
+
+                <!-- 2. GPS 이동 데이터 인식 아이템 -->
+                <div class="timeline-item">
+                    <div class="item-info">
+                        <div class="item-icon-gps">🚲</div>
+                        <div class="item-details">
+                            <h3>GPS 이동 동선 분석 (자전거 이용)</h3>
+                            <p>이동 거리 3.2km 측정 (자동차 대비 탄소 배출 절감)</p>
+                        </div>
+                    </div>
+                    <div class="item-credit">+ 120 Neo</div>
+                </div>
+
+                <!-- 3. 이메일 데이터 인식 아이템 2 -->
+                <div class="timeline-item">
+                    <div class="item-info">
+                        <div class="item-icon-shop">☕</div>
+                        <div class="item-details">
+                            <h3>스타벅스 전자영수증 자동 인식</h3>
+                            <p>개인 컵(텀블러) 에코 보너스 스타 전송 내역 매칭 완료</p>
+                        </div>
+                    </div>
+                    <div class="item-credit">+ 60 Neo</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 카피라이트 푸터 -->
+    <footer>
+        © 2026 EcoNeo. All rights reserved. 수기 입력 없는 친환경 자산 관리 플랫폼.
+    </footer>
+
+</body>
+</html>
